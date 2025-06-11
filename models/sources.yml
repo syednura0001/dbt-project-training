@@ -1,0 +1,17 @@
+sources:
+  - name: landing
+    database: EMART_OMS
+    schema: L1_LANDING
+    tables:
+
+    - name: cust
+      identifier: CUSTOMERS
+    
+    - name: ord
+      identifier: ORDERS
+
+    - name: ordItms
+      identifier: ORDERITEMS
+
+    - name: prdct
+      identifier: PRODUCTS

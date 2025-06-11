@@ -1,0 +1,25 @@
+models:
+  - name: customer_stg
+    columns:
+      - name: customername
+        tests:
+          - string_not_empty
+        
+      - name: customerid
+        tests:
+          - not_null
+  
+  - name: order_stg
+    columns:
+      - name: statuscd
+        tests:
+          - accepted_values:
+              values: ['01','02','03','04']
+  
+  - name: orderitems_stg
+    columns:
+      - name: orderid
+        tests:
+          - relationships:
+              field: orderid
+              to: ref('order_stg')
