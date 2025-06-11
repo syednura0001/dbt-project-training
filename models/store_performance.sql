@@ -1,0 +1,16 @@
+{{config(materialized = 'table')}}
+
+SELECT
+    OS.STOREID,
+    SUM(OFACT.REVENUE) AS ACTUALSALES,
+    SUM(ST.SALESTARGET) AS TARGETSALES,
+    ROUND((SUM(OFACT.REVENUE)/ST.SALESTARGET) * 100, 2) AS PERCENT_ACHIEVED
+FROM
+    {{ ref('order_stg')}} OS
+JOIN
+    {{ ref('orders_fact')}} OFACT
+ON OS.ORDERID = OFACT.ORDERID
+JOIN
+    {{ ref('salestargets')}} ST 
+ON ST.STOREID = OS.STOREID
+GROUP BY OS.STOREID, ST.SALESTARGET
